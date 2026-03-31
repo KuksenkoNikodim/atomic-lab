@@ -1,3 +1,2 @@
-requests
-flask
-pytest
+# Используйте requirements.lock.txt для точных версий
+# pip install -r requirements.lock.txt
