@@ -16,8 +16,6 @@
 ### Скриншот 3: Полная история коммитов
 ![Git Log Graph](screenshots/screenshot3.png)
 
-### Скриншот 4: Чистый старт (восстановление окружения)
-=======
 ### Скриншот 4: Чистый старт (тесты PASSED)
 ![Clean Start](screenshots/screenshot4.png)
 
