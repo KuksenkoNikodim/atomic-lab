@@ -4,6 +4,25 @@
 **Дата:** 31.03.2026
 ---
 
+## Скриншоты
+
+### Скриншот 1: История коммитов (атомарность)
+![Git Log](screenshots/screenshot1.png)
+
+### Скриншот 2: Интерактивный стейджинг (git add -p)
+![Git Add -p](screenshots/screenshot2.png)
+
+### Скриншот 3: Полная история коммитов
+![Git Log Graph](screenshots/screenshot3.png)
+
+### Скриншот 4: Чистый старт (восстановление окружения)
+![Clean Start](screenshots/screenshot4.png)
+
+### Скриншот 5: Pre-commit hook (блокировка коммита)
+![Pre-commit Hook](screenshots/screenshot5.png)
+
+---
+
 ## Ответы на контрольные вопросы
 
 ### 1. Как использование git add -p помогает при отладке через git bisect?
