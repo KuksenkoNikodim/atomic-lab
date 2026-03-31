@@ -1,11 +1,21 @@
 import requests
+import logging
 
 def is_valid_email_address(email_string):
     if "@" not in email_string:
         return False
     return True
 
-# FEAT: новая функция статуса пользователя
+def authenticate_user(credentials):
+    try:
+        if not credentials or 'username' not in credentials:
+            raise ValueError("Invalid credentials format")
+        # Аутентификационная логика
+        return True
+    except Exception as e:
+        logging.error(f"Authentication failed: {e}")
+        return False
+
 def get_user_status(user_status_code):
     """
     Get user status description based on status code
@@ -19,27 +29,31 @@ def get_user_status(user_status_code):
     return status_map.get(user_status_code, "Unknown")
 
 def process_user_data(user_data):
-    # Бизнес-логика
+    # Бизнес-логика с обновленными именами переменных
     if not is_valid_email_address(user_data['email']):
         print("Invalid email")
         return None
     
-    # Валидация
     if user_data['age'] < 18:
         print("User is underage")
         return None
     
-    # Обработка данных
-    user_data['status'] = 'active'
+    user_data['account_status'] = 'active'
     print(f"Processing user: {user_data['name']}")
     
-    # Внешний API вызов
-    response = requests.get('https://api.example.com/users')
+    # Добавлена обработка ошибок для API вызова
+    try:
+        response = requests.get('https://api.example.com/users', timeout=5)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"API call failed: {e}")
+        return None
+    
     return user_data
 
 if __name__ == "__main__":
-    user = {"name": "John", "email": "john@example.com", "age": 25}
-    result = process_user_data(user)
+    user_data = {"name": "John", "email": "john@example.com", "age": 25}
+    result = process_user_data(user_data)
     print("Result:", result)
     
     # Тестирование новой функции
