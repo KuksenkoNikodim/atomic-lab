@@ -11,7 +11,7 @@
 ![Git Log](screenshots/screenshot1.png)
 
 ### Скриншот 2: Интерактивный стейджинг (git add -p)
-![Git Log](screenshots/screenshot2.png)
+![Git app -p](screenshots/screenshot2.PNG)
 
 ### Скриншот 3: Полная история коммитов
 ![Git Log Graph](screenshots/screenshot3.png)
