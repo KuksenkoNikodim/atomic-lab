@@ -11,7 +11,7 @@ def get_user_status(user_id, status_map):
 def process_user_data(user):
     if not validate_email(user.get("email", "")):
         return "Invalid email"
-    return f"Processing user: {user.get(name, Unknown)} (status: {user.get(status, inactive)})"
+    return f"Processing user: {user.get('name', 'Unknown')} (status: {user.get('status', 'inactive')})"
 
 if __name__ == "__main__":
     random.seed(42)
