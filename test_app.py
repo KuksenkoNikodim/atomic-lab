@@ -1,87 +1,34 @@
 import pytest
-import random
-from app import is_valid_email_address, get_user_status, process_user_data
+from app import validate_email, get_user_status, process_user_data
 
-# Фиксируем seed для воспроизводимости
-random.seed(42)
-
-class TestEmailValidation:
-    """Given-When-Then тесты для валидации email"""
-    
+class TestValidateEmail:
     def test_valid_email(self):
-        # GIVEN корректный email
-        email = "user@example.com"
-        
-        # WHEN проверяем валидацию
-        result = is_valid_email_address(email)
-        
-        # THEN результат должен быть True
-        assert result is True
-    
-    def test_invalid_email_without_at(self):
-        # GIVEN email без символа @
-        email = "userexample.com"
-        
-        # WHEN проверяем валидацию
-        result = is_valid_email_address(email)
-        
-        # THEN результат должен быть False
-        assert result is False
+        assert validate_email("user@example.com") == True
 
-class TestUserStatus:
-    """Given-When-Then тесты для статуса пользователя"""
-    
-    def test_active_status(self):
-        # GIVEN код статуса 1
-        status_code = 1
-        
-        # WHEN получаем описание статуса
-        status = get_user_status(status_code)
-        
-        # THEN должен вернуться "Active"
-        assert status == "Active"
-    
-    def test_unknown_status(self):
-        # GIVEN неизвестный код статуса
-        status_code = 99
-        
-        # WHEN получаем описание статуса
-        status = get_user_status(status_code)
-        
-        # THEN должен вернуться "Unknown"
-        assert status == "Unknown"
+    def test_invalid_email_no_at(self):
+        assert validate_email("userexample.com") == False
+
+    def test_empty_email(self):
+        assert validate_email("") == False
+
+class TestGetUserStatus:
+    def test_active_user(self):
+        status_map = {"user1": "active"}
+        assert get_user_status("user1", status_map) == "active"
+
+    def test_inactive_user(self):
+        status_map = {"user1": "inactive"}
+        assert get_user_status("user1", status_map) == "inactive"
+
+    def test_user_without_status(self):
+        status_map = {}
+        assert get_user_status("user1", status_map) == "unknown"
 
 class TestProcessUserData:
-    """Given-When-Then тесты для обработки данных пользователя"""
-    
-    def test_valid_user_processing(self, mocker):
-        # GIVEN валидные данные пользователя
-        user_data = {
-            "name": "John",
-            "email": "john@example.com",
-            "age": 25
-        }
-        
-        # Mock API вызова
-        mocker.patch('requests.get')
-        
-        # WHEN обрабатываем данные
-        result = process_user_data(user_data)
-        
-        # THEN результат не должен быть None
-        assert result is not None
-        assert result['account_status'] == 'active'
-    
-    def test_underage_user(self):
-        # GIVEN несовершеннолетний пользователь
-        user_data = {
-            "name": "Jane",
-            "email": "jane@example.com",
-            "age": 16
-        }
-        
-        # WHEN обрабатываем данные
-        result = process_user_data(user_data)
-        
-        # THEN результат должен быть None
-        assert result is None
+    def test_process_valid_user(self):
+        user = {"name": "John", "email": "john@example.com", "status": "active"}
+        assert process_user_data(user) == "Processing user: John (status: active)"
+
+    def test_process_invalid_email(self):
+        user = {"name": "John", "email": "invalid", "status": "active"}
+        assert process_user_data(user) == "Invalid email"
