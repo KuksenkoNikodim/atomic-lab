@@ -49,7 +49,7 @@ test_app.py::TestProcessUserData::test_process_invalid_email PASSED
 Приложение успешно восстановилось из requirements.lock.txt. Все 8 тестов пройдены успешно, что подтверждает корректность работы программы.
 
 3. Скриншот сработки pre-commit хука (блокировка коммита)
-https://screenshots/pre-commit.png
+![pre-commit](screenshots/pre-commit.png)
 
 Попытка сделать коммит с нарушением стиля:
 
